@@ -30,38 +30,26 @@ import {
 import {AuthProvider} from './src/context';
 import {LandingScreen, ProfileScreen} from './src/screens';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  prefetchConfiguration,
+  type AuthConfiguration,
+} from 'react-native-app-auth';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-// function Section({children, title}: SectionProps): JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
+export const config: AuthConfiguration = {
+  issuer: 'https://id-sandbox.cashtoken.africa',
+  clientId: 'wprQYMZBqqx-dgszFUfQG',
+  redirectUrl: 'https://id-sandbox.cashtoken.africa/callback',
+  scopes: ['openid', 'email', 'profile'],
+  serviceConfiguration: {
+    authorizationEndpoint:
+      'https://id-sandbox.cashtoken.africa/oauth/authorize',
+    tokenEndpoint: 'https://id-sandbox.cashtoken.africa/oauth/token',
+  },
+};
 
 const Stack = createStackNavigator();
+
+prefetchConfiguration(config);
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
